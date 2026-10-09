@@ -1,0 +1,39 @@
+{
+    "project_name": "AUTOSAR HLD AI Assistant",
+    "version": "1.0.0",
+    "embedding_model": {
+        "provider": "Hugging Face / Sentence-Transformers",
+        "model_name": "sentence-transformers/all-MiniLM-L6-v2",
+        "vector_dimension": 384,
+        "distance_metric": "cosine",
+        "device": "cpu"
+    },
+    "large_language_model": {
+        "provider": "Hugging Face Hub / Local Transformers",
+        "model_name": "Qwen/Qwen2.5-Coder-1.5B-Instruct",
+        "torch_dtype": "auto",
+        "device_map": "cpu",
+        "generation_parameters": {
+            "max_new_tokens": 300,
+            "do_sample": false,
+            "temperature": 0.0,
+            "top_p": 1.0,
+            "repetition_penalty": 1.05
+        }
+    },
+    "chunking_strategy": {
+        "strategy": "Recursive / Sliding Window by Words",
+        "chunk_size_words": 400,
+        "overlap_words": 60,
+        "metadata_fields": [
+            "source",
+            "page",
+            "chunk_id"
+        ]
+    },
+    "vector_store": {
+        "engine": "ChromaDB",
+        "persist_directory": "data/chromadb",
+        "collection_name": "autosar_hld_store"
+    }
+}
